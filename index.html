@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Steeve studio</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0a0920">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Steeve studio">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--tx:#f4f2ff;--mut:#a8a3c7;--bd:rgba(255,255,255,.13);--glass:rgba(255,255,255,.07);--g:linear-gradient(135deg,#8b5cf6,#ec4899 60%,#fb923c);color-scheme:dark}
+*{box-sizing:border-box}
+html{background:#0a0920}
+body{margin:0;min-height:100vh;font:15px/1.5 "Segoe UI",system-ui,sans-serif;color:var(--tx)}
+body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:
+ radial-gradient(40% 40% at 20% 25%,rgba(139,92,246,.55),transparent 70%),
+ radial-gradient(35% 35% at 80% 20%,rgba(236,72,153,.40),transparent 70%),
+ radial-gradient(45% 45% at 70% 85%,rgba(14,165,233,.38),transparent 70%),
+ radial-gradient(30% 30% at 15% 85%,rgba(251,146,60,.22),transparent 70%);
+ animation:drift 28s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate3d(4%,-3%,0) rotate(6deg) scale(1.08)}}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+main aside{animation:in .6s both}
+main section{animation:in .6s .12s both}
+@media(prefers-reduced-motion:reduce){body::before,main aside,main section{animation:none}}
+header{padding:22px 22px 8px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+h1{margin:0;display:flex;align-items:center;gap:12px;font:800 28px/1 "Segoe UI",system-ui,sans-serif;letter-spacing:-.02em}
+.logo{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--g);color:#fff;font-size:16px;box-shadow:0 6px 24px rgba(236,72,153,.55)}
+.brand{background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+main{display:grid;grid-template-columns:260px 1fr;gap:18px;padding:12px 22px 34px;align-items:start}
+@media(max-width:700px){main{grid-template-columns:1fr}}
+.pan{background:var(--glass);border:1px solid var(--bd);border-radius:18px;padding:14px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+section .pan+.pan,#plw{margin-top:0}
+button,select{font:inherit;color:var(--tx);background:rgba(255,255,255,.08);border:1px solid var(--bd);border-radius:10px;padding:7px 12px;cursor:pointer;transition:background .15s,border-color .15s}
+button:hover:not(:disabled){background:rgba(255,255,255,.16);border-color:#c4b5fd}
+button:disabled{opacity:.35;cursor:default}
+button:focus-visible,select:focus-visible,.fo:focus-visible{outline:2px solid #c4b5fd;outline-offset:2px}
+select option{background:#1b1840;color:var(--tx)}
+.pri{background:var(--g);color:#fff;border:0;font-weight:700;box-shadow:0 6px 22px rgba(236,72,153,.4)}
+.pri:hover:not(:disabled){background:var(--g);filter:brightness(1.12)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.fo{display:flex;justify-content:space-between;gap:8px;padding:9px 12px;border-radius:12px;cursor:pointer;transition:background .15s}
+.fo:hover{background:rgba(255,255,255,.09)}
+.fo.on{background:var(--g);color:#fff;font-weight:700;box-shadow:0 6px 22px rgba(139,92,246,.45)}
+.fo small{opacity:.8}
+h2{margin:2px 2px 0;font:800 24px/1.2 "Segoe UI",system-ui,sans-serif;letter-spacing:-.01em}
+#list{min-height:180px}
+#list .mut{border:2px dashed var(--bd);border-radius:14px;margin:8px 0}
+.it{display:flex;align-items:center;gap:10px;padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.08);border-radius:10px;transition:background .15s}
+.it:hover{background:rgba(255,255,255,.05)}
+.it:last-child{border-bottom:0}
+.it b{width:28px;text-align:right;color:#c4b5fd;font-weight:700}
+.it.cur{background:rgba(139,92,246,.24);box-shadow:inset 3px 0 0 #ec4899}
+.nm{flex:1;min-width:0;overflow-wrap:anywhere}
+.nm small{display:block;color:var(--mut)}
+.it select{max-width:125px}
+.it[draggable]{cursor:grab}
+.mut{color:var(--mut);padding:18px;text-align:center}
+#plw{margin-bottom:18px}
+video{width:100%;max-height:50vh;background:#000;border-radius:14px;box-shadow:0 0 0 1px var(--bd),0 20px 60px rgba(139,92,246,.35)}
+dialog{border:1px solid var(--bd);border-radius:18px;background:#1b1840;color:var(--tx);padding:20px;width:min(360px,92vw);box-shadow:0 20px 60px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(5,4,20,.6);backdrop-filter:blur(4px)}
+dialog input{width:100%;font:inherit;color:var(--tx);background:rgba(255,255,255,.08);border:1px solid var(--bd);border-radius:10px;padding:9px 12px}
+#dm{margin:0 0 12px}
+#pn{margin:2px 2px 10px;color:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="logo">▶</span><span class="brand">Steeve studio</span></h1>
+  <div class="bar">
+    <button data-a="exp">Exporter le classement</button>
+    <button data-a="imp">Importer</button>
+    <button data-a="inst" id="inst" class="pri" hidden>Installer l’application</button>
+  </div>
+</header>
+<main>
+  <aside class="pan">
+    <div id="side"></div>
+    <div class="bar">
+      <button data-a="addf">Nouveau dossier</button>
+      <button data-a="renf">Renommer</button>
+      <button data-a="fup" title="Monter le dossier">↑</button>
+      <button data-a="fdn" title="Descendre le dossier">↓</button>
+      <button data-a="delf">Supprimer</button>
+    </div>
+  </aside>
+  <section>
+    <div id="plw" class="pan" hidden>
+      <div id="pn"></div>
+      <video id="pl" controls></video>
+    </div>
+    <div class="pan">
+      <h2 id="title"></h2>
+      <div class="bar">
+        <button class="pri" data-a="pick">Choisir un dossier du téléphone</button>
+        <button data-a="rc" id="rc" hidden>Reconnecter mes dossiers</button>
+        <button data-a="add">Ajouter des vidéos</button>
+        <button data-a="relink">Relier les fichiers</button>
+        <button data-a="sort">Trier par nom</button>
+      </div>
+      <div id="list"></div>
+    </div>
+    <p class="mut">Sur Android avec Chrome, « Choisir un dossier du téléphone » charge toutes les vidéos d’un coup et retient le dossier. À la réouverture, un appui sur « Reconnecter mes dossiers » suffit, parfois même aucun. Tout reste sur ton téléphone, sans connexion.</p>
+  </section>
+</main>
+<dialog id="dlg"><p id="dm"></p><input id="di" type="text" aria-label="Nom"><div class="bar"><button class="pri" id="dok">OK</button><button id="dno">Annuler</button></div></dialog>
+<input id="fd" type="file" webkitdirectory multiple hidden>
+<input id="fi" type="file" accept="video/*" multiple hidden>
+<input id="fr" type="file" accept="video/*" multiple hidden>
+<input id="fj" type="file" accept=".json" hidden>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const key=v=>v.name+"|"+v.size;
+const F={};
+let S=null;
+try{S=JSON.parse(localStorage.getItem("classeur-videos"))}catch(e){}
+if(!S||!S.folders||!S.folders.length)S={folders:[{id:1,name:"Mes vidéos",items:[]}],sel:1,n:2};
+const save=()=>{try{localStorage.setItem("classeur-videos",JSON.stringify(S))}catch(e){}};
+const cur=()=>S.folders.find(f=>f.id==S.sel)||S.folders[0];
+let playing=-1;
+function ask(msg,val){return new Promise(r=>{
+  const d=$("#dlg"),i=$("#di");
+  $("#dm").textContent=msg;i.hidden=val===undefined;i.value=val||"";
+  const end=v=>{d.close();r(v)};
+  $("#dok").onclick=()=>end(i.hidden?true:(i.value.trim()||null));
+  $("#dno").onclick=()=>end(null);
+  d.oncancel=()=>end(null);
+  d.showModal();if(!i.hidden)i.focus();
+})}
+
+function render(){
+  const c=cur();S.sel=c.id;
+  $("#side").innerHTML=S.folders.map((f,i)=>`<div class="fo ${f.id==c.id?"on":""}" tabindex="0" data-a="sel" data-i="${i}"><span>${esc(f.name)}</span><small>${f.items.length}</small></div>`).join("");
+  $("#title").textContent=c.name;
+  $("#list").innerHTML=c.items.length?c.items.map((v,i)=>{
+    const ok=F[key(v)];
+    return `<div class="it ${i==playing?"cur":""}" draggable="true" data-i="${i}"><b>${i+1}</b><div class="nm">${esc(v.name)}<small>${(v.size/1048576).toFixed(1)} Mo${ok?"":" – à relier"}</small></div>`+
+    `<select data-a="mv" data-i="${i}" aria-label="Déplacer vers un autre dossier"><option value="">Déplacer…</option>${S.folders.filter(f=>f.id!=c.id).map(f=>`<option value="${f.id}">${esc(f.name)}</option>`).join("")}</select>`+
+    `<button data-a="up" data-i="${i}" title="Monter">↑</button><button data-a="dn" data-i="${i}" title="Descendre">↓</button>`+
+    `<button data-a="play" data-i="${i}" ${ok?"":"disabled"} title="Lire">▶</button><button data-a="rm" data-i="${i}" title="Retirer du classeur">✕</button></div>`;
+  }).join(""):`<p class="mut">Ce dossier est vide. Ajoute des vidéos ou glisse-les ici.</p>`;
+  save();
+}
+
+function addFiles(fs){
+  const c=cur();
+  for(const f of fs){
+    if(!f.type.startsWith("video/")&&!/\.(mp4|mkv|mov|avi|webm|m4v)$/i.test(f.name))continue;
+    const v={name:f.name,size:f.size};
+    F[key(v)]=f;
+    if(!c.items.some(x=>key(x)==key(v)))c.items.push(v);
+  }
+  render();
+}
+
+let url;
+function play(i){
+  const L=cur().items,v=L[i];
+  if(!v||!F[key(v)])return;
+  if(url)URL.revokeObjectURL(url);
+  url=URL.createObjectURL(F[key(v)]);
+  playing=i;
+  $("#plw").hidden=false;
+  $("#pn").textContent=(i+1)+". "+v.name;
+  const p=$("#pl");p.src=url;p.play().catch(()=>{});
+  render();
+}
+$("#pl").addEventListener("ended",()=>{if(playing>=0)play(playing+1)});
+
+async function act(a,i,t){
+  const c=cur(),L=c.items;
+  if(a=="sel"){S.sel=S.folders[i].id;playing=-1}
+  else if(a=="up"&&i>0){[L[i-1],L[i]]=[L[i],L[i-1]]}
+  else if(a=="dn"&&i<L.length-1){[L[i+1],L[i]]=[L[i],L[i+1]]}
+  else if(a=="rm"){L.splice(i,1)}
+  else if(a=="mv"){const d=S.folders.find(f=>f.id==t.value);if(d)d.items.push(L.splice(i,1)[0])}
+  else if(a=="play"){play(i);return}
+  else if(a=="pick"){pickDir();return}
+  else if(a=="rc"){reconnect(true);return}
+  else if(a=="add"){$("#fi").click();return}
+  else if(a=="relink"){$("#fr").click();return}
+  else if(a=="sort"){L.sort((x,y)=>x.name.localeCompare(y.name,"fr",{numeric:true}))}
+  else if(a=="addf"){const n=await ask("Nom du nouveau dossier","");if(!n)return;S.folders.push({id:S.n++,name:n.trim(),items:[]});S.sel=S.n-1}
+  else if(a=="renf"){const n=await ask("Nouveau nom du dossier",c.name);if(!n)return;c.name=n.trim()}
+  else if(a=="delf"){
+    if(S.folders.length<2){await ask("Il faut garder au moins un dossier.");return}
+    if(!await ask("Supprimer le dossier « "+c.name+" » ? Les vidéos ne sont pas effacées de ton ordinateur."))return;
+    S.folders=S.folders.filter(f=>f.id!=c.id);S.sel=S.folders[0].id;
+  }
+  else if(a=="fup"||a=="fdn"){
+    const k=S.folders.indexOf(c),j=a=="fup"?k-1:k+1;
+    if(j<0||j>=S.folders.length)return;
+    [S.folders[k],S.folders[j]]=[S.folders[j],S.folders[k]];
+  }
+  else if(a=="exp"){
+    const l=document.createElement("a");
+    l.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:"application/json"}));
+    l.download="classeur-videos.json";l.click();return;
+  }
+  else if(a=="imp"){$("#fj").click();return}
+  else if(a=="inst"){if(!ip)return;ip.prompt();await ip.userChoice;ip=null;$("#inst").hidden=true;return}
+  render();
+}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-a]");
+  if(!t||t.tagName=="SELECT"||t.disabled)return;
+  act(t.dataset.a,+t.dataset.i,t);
+});
+document.addEventListener("keydown",e=>{
+  if(e.key=="Enter"&&e.target.classList.contains("fo"))act("sel",+e.target.dataset.i,e.target);
+});
+document.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.tagName=="SELECT"&&t.dataset.a=="mv"&&t.value)act("mv",+t.dataset.i,t);
+});
+
+$("#fi").addEventListener("change",e=>{addFiles(e.target.files);e.target.value=""});
+$("#fr").addEventListener("change",e=>{
+  for(const f of e.target.files)F[f.name+"|"+f.size]=f;
+  e.target.value="";render();
+});
+$("#fj").addEventListener("change",e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{const d=JSON.parse(r.result);if(!d.folders||!d.folders.length)throw 0;S=d;playing=-1;render()}
+    catch(x){ask("Ce fichier n’est pas un classement valide.")}
+  };
+  r.readAsText(f);e.target.value="";
+});
+
+let dr=null;
+document.addEventListener("dragstart",e=>{const r=e.target.closest(".it");if(r)dr=+r.dataset.i});
+document.addEventListener("dragover",e=>{if(e.target.closest("#list"))e.preventDefault()});
+document.addEventListener("drop",e=>{
+  if(!e.target.closest("#list"))return;
+  e.preventDefault();
+  if(e.dataTransfer.files.length){addFiles(e.dataTransfer.files);return}
+  const r=e.target.closest(".it");
+  if(r&&dr!==null){const L=cur().items;L.splice(+r.dataset.i,0,L.splice(dr,1)[0]);dr=null;playing=-1;render()}
+});
+
+const isVid=n=>/\.(mp4|mkv|mov|avi|webm|m4v|3gp)$/i.test(n);
+const idb=()=>new Promise((ok,ko)=>{const r=indexedDB.open("steeve-studio",1);r.onupgradeneeded=()=>r.result.createObjectStore("roots");r.onsuccess=()=>ok(r.result);r.onerror=()=>ko(r.error)});
+async function rootsAll(){const d=await idb();return new Promise(ok=>{const q=d.transaction("roots").objectStore("roots").getAll();q.onsuccess=()=>ok(q.result);q.onerror=()=>ok([])})}
+async function rootPut(h){const d=await idb();return new Promise(ok=>{const t=d.transaction("roots","readwrite");t.objectStore("roots").put(h,h.name);t.oncomplete=()=>ok();t.onerror=()=>ok()})}
+
+async function scan(dir,path,out){
+  const files=[];
+  for await(const [n,h] of dir.entries()){
+    if(h.kind=="file"){if(isVid(n))files.push(await h.getFile())}
+    else await scan(h,path+"/"+n,out);
+  }
+  if(files.length)out.push({path,files});
+}
+function importScan(out){
+  if(!out.length){ask("Aucune vidéo trouvée dans ce dossier.");return}
+  out.sort((a,b)=>a.path.localeCompare(b.path,"fr",{numeric:true}));
+  let first=null;
+  for(const g of out){
+    let c=S.folders.find(f=>f.name==g.path);
+    if(!c){c={id:S.n++,name:g.path,items:[]};S.folders.push(c)}
+    first=first||c;
+    g.files.sort((a,b)=>a.name.localeCompare(b.name,"fr",{numeric:true}));
+    for(const f of g.files){
+      const v={name:f.name,size:f.size};F[key(v)]=f;
+      if(!c.items.some(x=>key(x)==key(v)))c.items.push(v);
+    }
+  }
+  const d=S.folders[0];
+  if(d.id==1&&d.name=="Mes vidéos"&&!d.items.length&&S.folders.length>1)S.folders.shift();
+  S.sel=first.id;playing=-1;render();
+}
+async function pickDir(){
+  if(window.showDirectoryPicker){
+    let h;try{h=await showDirectoryPicker({mode:"read"})}catch(e){return}
+    const out=[];await scan(h,h.name,out);importScan(out);
+    try{await rootPut(h)}catch(e){}
+  }else $("#fd").click();
+}
+async function reconnect(gesture){
+  let hs=[],wait=0;
+  try{hs=await rootsAll()}catch(e){}
+  for(const h of hs){
+    try{
+      let p=await h.queryPermission({mode:"read"});
+      if(p!="granted"&&gesture)p=await h.requestPermission({mode:"read"});
+      if(p=="granted"){const out=[];await scan(h,h.name,out);for(const g of out)for(const f of g.files)F[f.name+"|"+f.size]=f}
+      else wait++;
+    }catch(e){wait++}
+  }
+  $("#rc").hidden=!wait;render();
+}
+$("#fd").addEventListener("change",e=>{
+  const m={};
+  for(const f of e.target.files){
+    if(!isVid(f.name)&&!f.type.startsWith("video/"))continue;
+    const p=(f.webkitRelativePath||f.name).split("/").slice(0,-1).join("/")||"Vidéos";
+    (m[p]=m[p]||[]).push(f);
+  }
+  e.target.value="";
+  importScan(Object.entries(m).map(([path,files])=>({path,files})));
+});
+
+render();
+reconnect(false);
+
+/* --- Application hors ligne (PWA) --- */
+let ip=null;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();ip=e;$("#inst").hidden=false});
+window.addEventListener("appinstalled",()=>{ip=null;$("#inst").hidden=true});
+if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
+if("serviceWorker"in navigator&&location.protocol!="file:")
+  addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+</script>
+</body>
+</html>
